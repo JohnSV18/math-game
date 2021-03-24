@@ -120,10 +120,10 @@ def main():
                 
 
             ball_tuple = (ball.position_x, ball.position_y, ball.width, ball.height)
-            
+
             print(f"ball number {ball.number} position {ball.position_x}")
 
-            if pygame.Rect.collidelist(circle_basket, ball_tuple):
+            if pygame.Rect.colliderect(circle_basket, ball_tuple):
                 points += 1
                 balls.remove(ball)
             if ball.position_y > screen_height:
