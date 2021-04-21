@@ -28,7 +28,12 @@ class Ball():
         self.height = 10
         self.position_y = 40
         self.position_x = 0
+        # using this to rep given number for the ball
         self.number = number
+
+    def __repr__(self):
+        return f"Ball object: {self.number}"
+
 
     def set_position_x(self):
         self.position_x = random.randint(100, 900)
@@ -37,21 +42,19 @@ class Ball():
 
 class Basket():
     def __init__(self):
-        self.height = 55
-        self.width = 40    
+        self.rect = pygame.Rect(300, 500, 55, 40)   
 
 
     def show_basket(self):
         basket_image = pygame.image.load(os.path.join('assets', 'cart.jpg'))
-        basket = pygame.transform.scale(basket_image, (self.height, self.width))
+        basket = pygame.transform.scale(basket_image, (55, 40))
 
         return basket
 
 
-def draw_window(circle_basket, x, y, balls, health, points, target_score):
-    b = Basket()
+def draw_window(basket, balls, health, points, target_score):
     screen.fill((255,255,255))
-    screen.blit(b.show_basket(), (x, y))
+    screen.blit(basket.show_basket(), (basket.rect.x, basket.rect.y))
     target_point_text = health_font.render("Target Point: " + str(target_score), 1, black)
     screen.blit(target_point_text, (680, 25))
     health_text = health_font.render("Health: " + str(health), 1, black)
@@ -82,10 +85,7 @@ def main():
     target_score = random.randint(7,11)
     health = 10
     points = 0
-    b = Basket()
-    x = 300 
-    y = 500
-    circle_basket = pygame.Rect(300, 500, b.height, b.width)
+    basket = Basket()
     clock = pygame.time.Clock()
     game_is_running = True
     balls = []
@@ -121,23 +121,27 @@ def main():
 
             ball_tuple = (ball.position_x, ball.position_y, ball.width, ball.height)
 
-            print(f"ball number {ball.number} position {ball.position_x}")
+            
 
-            if pygame.Rect.colliderect(circle_basket, ball_tuple):
+            if pygame.Rect.colliderect(basket.rect, ball_tuple):
                 points += 1
                 balls.remove(ball)
+                print(f"ball number {ball.number} position {ball.position_x}")
+            else:
+                print('******Balls that did not collide ******\n')
+                print(f"ball number {ball.number} position {ball.position_x}")
             if ball.position_y > screen_height:
                 health -= 1                
                 balls.remove(ball)
 
 
         keys_pressed = pygame.key.get_pressed()
-        if keys_pressed[pygame.K_LEFT] and x - velocity >0:
-            x -= velocity
-        if keys_pressed[pygame.K_RIGHT] and x + velocity + circle_basket.width < screen_width:
-            x += velocity
+        if keys_pressed[pygame.K_LEFT] and basket.rect.x - velocity >0:
+            basket.rect.x -= velocity
+        if keys_pressed[pygame.K_RIGHT] and basket.rect.x + velocity + basket.rect.width < screen_width:
+            basket.rect.x += velocity
 
-        draw_window(circle_basket, x, y, balls, health, points, target_score)
+        draw_window(basket, balls, health, points, target_score)
         
         
           
