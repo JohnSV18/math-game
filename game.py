@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("Mathtris")
 frames_per_second = 60
 # velocity of basket moving side to side
-velocity = 5
+velocity = 7
 # color of balls that fall from above
 ball_color = (random.randint(0,150),random.randint(100, 200), 0)
 
@@ -106,7 +106,7 @@ def main():
         #     print(win_text)
       
         while len(balls) < 3:
-            ball = Ball(balls.count)
+            ball = Ball()
             ball.set_position_x()
             balls.append(ball)
     
