@@ -1,12 +1,11 @@
 import pygame
-import sys
-import os
 import random
 from screen import Screen
 from ball import Ball
 from basket import Basket
 
 def main():
+    """Runs the whole game and also stops it once the requirements are met"""
     target_score = random.randint(7,11)
     health = 10
     points = 0
@@ -36,15 +35,20 @@ def main():
             if points == target_score:
                 ball.rect.y = -10
 
-            if ball.check_ball_collision():
+            if ball.check_ball_collision(basket):
                 points += 1
                 balls.remove(ball)
 
+            if ball.rect.y > screen.screen_size[1]:
+                health -= 1                
+                balls.remove(ball)
 
-            
+                
+        # This allows the cart to move from left to right based on the keys the user is pressing
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_LEFT] and basket.rect.x - velocity >0:
             basket.rect.x -= velocity
+        
         if keys_pressed[pygame.K_RIGHT] and basket.rect.x + velocity + basket.rect.width < screen.screen_size[0]:
             basket.rect.x += velocity
 

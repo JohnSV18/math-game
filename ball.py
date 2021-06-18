@@ -1,6 +1,4 @@
 import pygame
-import sys
-import os
 import random
 
 class Ball():
@@ -18,12 +16,7 @@ class Ball():
 
     def check_ball_collision(self, basket):
         if pygame.Rect.colliderect(basket.rect, self.rect):
-            # points += 1
-            # balls.remove(ball)
             return True
         else:
             return False 
-            # print(f"ball number {ball.number} position {ball.rect.x}")
-        if ball.rect.y > screen.screen_size[1]:
-            health -= 1                
-            balls.remove(ball)
+        
