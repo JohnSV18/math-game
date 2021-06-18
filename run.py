@@ -3,7 +3,8 @@ import sys
 import os
 import random
 from screen import Screen
-from game import Ball, Basket
+from ball import Ball
+from basket import Basket
 
 def main():
     target_score = random.randint(7,11)
@@ -17,7 +18,7 @@ def main():
     balls = []
 
     while game_is_running:
-        clock.tick(Screen.frames_per_second)
+        clock.tick(screen.frames_per_second)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_is_running = False
@@ -29,39 +30,25 @@ def main():
     
         for ball in balls:
             if health > 0:
-                ball.position_y += random.randint(2,6)
+                ball.rect.y += random.randint(2,6)                
             else:
-                ball.position_y = -10
+                ball.rect.y = -10
             if points == target_score:
-                ball.position_y = -10
-                
+                ball.rect.y = -10
 
-            ball_tuple = (ball.position_x, ball.position_y, ball.width, ball.height)
-
-            # checking collision 
-
-            if pygame.Rect.colliderect(basket.rect, ball_tuple):
+            if ball.check_ball_collision():
                 points += 1
                 balls.remove(ball)
-                print(f"ball number {ball.number} position {ball.position_x}")
-            else:
-                print('******Balls that did not collide ******\n')
-                print(f"ball number {ball.number} position {ball.position_x}")
-            if ball.position_y > Screen.screen_height:
-                health -= 1                
-                balls.remove(ball)
 
 
+            
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_LEFT] and basket.rect.x - velocity >0:
             basket.rect.x -= velocity
-        if keys_pressed[pygame.K_RIGHT] and basket.rect.x + velocity + basket.rect.width < screen.screen_width:
+        if keys_pressed[pygame.K_RIGHT] and basket.rect.x + velocity + basket.rect.width < screen.screen_size[0]:
             basket.rect.x += velocity
 
         screen.draw_window(basket, balls, health, points, target_score)
-        
-        
-          
         
 
 if __name__ == "__main__":
