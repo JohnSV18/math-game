@@ -1,5 +1,18 @@
 # The Sky is Falling!
-- My name is John Saguay and this is Mathris. The purpose of this game is to catch the balls falling from above and accumlating points
-as you catch them. Now, you only have 10 lives. So if you let 10 or more balls fall past your cart then you will lose. To win the game you will need
-to catch the balls using the left and right arrow keys and have the same amount as the target score. If you lose your 10 lives before you reach the target score, then you lose.
-I hope you all enjoy, and GOOD LUCK!
+![Sky is Falling](/assets/sky_falling.png)
+
+My name is John Saguay and this is a game I created using pygame where you have a random target score that you need to reach. You increase your score by moving the cart from left to right using your arrow keys to catch the balls that are falling from above. You start off with 10 lives and will lose one for every time that you don't catch a ball. The goal is to get your score to the target score, before you lose all your lives in order to WIN!
+
+# Instructions to Install
+To clone simply run the command below:
+```Terminal command
+git clone https://github.com/JohnSV18/sky-is-falling-game
+```
+You want to make sure to install pygame as well with:
+```Terminal command
+pip3 install pygame
+```
+Then run the game and enjoy!:
+```Terminal command
+python3 run.py
+```
