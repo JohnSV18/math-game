@@ -1,5 +1,5 @@
 # The Sky is Falling!
-![Sky is Falling](/assets/sky_falling.png)
+![Sky is Falling](/assets/sky_falling_1.png)
 
 My name is John Saguay and this is a game I created using pygame where you have a random target score that you need to reach. You increase your score by moving the cart from left to right using your arrow keys to catch the balls that are falling from above. You start off with 10 lives and will lose one for every time that you don't catch a ball. The goal is to get your score to the target score, before you lose all your lives in order to WIN!
 

@@ -7,7 +7,7 @@ from basket import Basket
 def main():
     """Runs the whole game and also stops it once the requirements are met"""
     target_score = random.randint(7,11)
-    health = 10
+    health = 100
     points = 0
     velocity = 7
     screen = Screen()
@@ -22,21 +22,26 @@ def main():
             if event.type == pygame.QUIT:
                 game_is_running = False
                  
-        while len(balls) < 3:
-            ball = Ball(balls.count)
+        while len(balls) < 4:
+            ball = Ball((random.randint(0,10)))
+            print(ball)
             ball.set_position_x()
             balls.append(ball)
+            
+        # have an array of random numbers and have the ball.rect.y choose from those
+        # or having a different random speed for each ball but eventually we want more than 3 balls to start falling as well.
     
         for ball in balls:
-            if health > 0:
-                ball.rect.y += random.randint(2,6)                
+            if health > 0 or points > target_score:
+                # ball.rect.y += random.randint(2,9)           
+                ball.rect.y += 3      
             else:
                 ball.rect.y = -10
             if points == target_score:
                 ball.rect.y = -10
 
             if ball.check_ball_collision(basket):
-                points += 1
+                points += int(ball.number)
                 balls.remove(ball)
 
             if ball.rect.y > screen.screen_size[1]:

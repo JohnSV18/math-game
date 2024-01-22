@@ -7,11 +7,11 @@ class Screen():
         self.screen = pygame.display.set_mode(self.screen_size)
         self.black_color = (0, 0, 0)
         pygame.font.init()
-        self.health_font = pygame.font.SysFont('comicsans', 40)
+        self.health_font = pygame.font.SysFont('comicsans', 25)
+        self.circle_number = pygame.font.SysFont('comicsans', 16)
         self.frames_per_second = 60
         pygame.display.set_caption("The Sky is Falling!")
-    
-
+        
     def draw_window(self, basket, balls, health, points, target_score):
         """This method draws the window of the game"""
         target_point_text = self.health_font.render("Target Point: " + str(target_score), 1, self.black_color)
@@ -33,12 +33,15 @@ class Screen():
         if points == target_score:
             won_text = self.health_font.render("You Win!", 1, self.black_color)
             self.screen.blit(won_text, (self.screen_size[0]/2, self.screen_size[1]/2))
-        elif health <= 0:
+        elif health <= 0 or points > target_score:
             lost_health_text = self.health_font.render("You Lose!", 1, self.black_color)
             self.screen.blit(lost_health_text, (self.screen_size[0]/2, self.screen_size[1]/2))
 
     def display_balls(self, balls):
         """This method displays all the occuring balls that should be displayed"""
+        
         for ball in balls:
-            pygame.draw.circle(self.screen, ball.ball_color, (ball.rect.x, ball.rect.y), ball.rect.width, ball.rect.height)
+            numberr_in_circle = self.circle_number.render(str(ball.number), 1, self.black_color) 
+            pygame.draw.circle(self.screen, ball.ball_color, (ball.rect.x + 5, ball.rect.y + 10), ball.rect.width, ball.rect.height)
+            self.screen.blit(numberr_in_circle,(ball.rect.x, ball.rect.y))
             
